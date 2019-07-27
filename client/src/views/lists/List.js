@@ -13,7 +13,7 @@ class List extends Component {
     fetch('/api/list_items')
     .then((res) => res.json())
     .then((listItems) => {
-      this.setState({listItems}, console.log('List Items', listItems));
+      this.setState({listItems: listItems}, console.log('List Items', listItems));
     });
   }
 
@@ -23,7 +23,7 @@ class List extends Component {
         <h2>List</h2>
         <ul>
           { this.state.listItems.map(item =>
-            <li key={ item.key }>{ item.title }</li>
+            <li key={ item.id }>{ item.title }</li>
           )}
         </ul>
       </div>
