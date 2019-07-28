@@ -14,11 +14,12 @@ class List extends Component {
   componentDidMount() {
     fetch('/api/list_items')
       .then((res) => res.json())
-      .then((listItems) => {
-        this.setState(
-          { listItems: listItems },
-          console.log('List Items', listItems)
-        );
+      .then((data) => {
+        let listItems = [];
+        for (let item in data) {
+          listItems.push(data[item]);
+        }
+        this.setState({ listItems: listItems });
       });
   }
 
