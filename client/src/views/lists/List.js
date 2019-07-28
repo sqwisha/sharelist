@@ -30,8 +30,15 @@ class List extends Component {
   componentDidMount() {
     listItemsRef.on('value', (snapshot) => {
       let listItems = [];
-      for (let item in snapshot.val()) {
-        listItems.push(snapshot.val()[item]);
+      const items = snapshot.val();
+
+      for (let item in items) {
+        listItems.push({
+          key: item,
+          id: items[item].id,
+          title: items[item].title,
+          purchased: items[item].purchased
+        });
       }
       this.setState({ listItems: listItems });
     });
@@ -59,6 +66,10 @@ class List extends Component {
     this.setState({ newItemInput: '' });
   };
 
+  handleCheckboxChange = (key, purchased) => {
+    listItemsRef.child(key).update({ purchased: !purchased });
+  };
+
   render() {
     return (
       <div>
@@ -70,7 +81,11 @@ class List extends Component {
         <h2>List</h2>
         <ul>
           {this.state.listItems.map((item) => (
-            <ListItem key={item.id} item={item} />
+            <ListItem
+              key={item.key}
+              item={item}
+              handleCheckboxChange={this.handleCheckboxChange}
+            />
           ))}
         </ul>
       </div>
