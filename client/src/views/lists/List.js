@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
+import firebase from '../../Firebase';
+
 import './List.css';
+
 import NewItemForm from './NewItemForm';
 import ListItem from './ListItem';
-
-import * as firebase from 'firebase/app';
-import 'firebase/database';
-firebase.initializeApp({
-  apiKey: process.env.FIREBASE_API,
-  authDomain: 'sharelist-f0e76.firebaseapp.com',
-  databaseURL: 'https://sharelist-f0e76.firebaseio.com',
-  projectId: 'sharelist-f0e76',
-  storageBucket: '',
-  messagingSenderId: '714915154334',
-  appId: '1:714915154334:web:4edd3c1a6193abaf'
-});
-
-const database = firebase.database();
-const listItemsRef = database.ref('listItems');
 
 class List extends Component {
   constructor() {
@@ -25,10 +13,12 @@ class List extends Component {
       listItems: [],
       newItemInput: ''
     };
+
+    this.listItemsRef = firebase.database().ref('listItems');
   }
 
   componentDidMount() {
-    listItemsRef.on('value', (snapshot) => {
+    this.listItemsRef.on('value', (snapshot) => {
       let listItems = [];
       const items = snapshot.val();
 
@@ -67,11 +57,11 @@ class List extends Component {
   };
 
   handleCheckboxChange = (key, purchased) => {
-    listItemsRef.child(key).update({ purchased: !purchased });
+    this.listItemsRef.child(key).update({ purchased: !purchased });
   };
 
   deleteListItem = (key) => {
-    listItemsRef.child(key).remove();
+    this.listItemsRef.child(key).remove();
   };
 
   handleEdit = (key, title) => {
@@ -82,7 +72,7 @@ class List extends Component {
       title: newItemTitle
     };
 
-    listItemsRef.child(key).update(updatedTitle);
+    this.listItemsRef.child(key).update(updatedTitle);
   };
 
   render() {
