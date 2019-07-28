@@ -4,7 +4,7 @@ export default class NewItemForm extends Component {
   render() {
     return (
       <div className="new-item-form">
-        <form action="/api/list_items/add" method="post">
+        <form onSubmit={this.props.handleNewListItem}>
           <input
             type="text"
             name="newListItem"
