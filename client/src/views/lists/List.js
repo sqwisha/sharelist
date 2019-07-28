@@ -70,6 +70,10 @@ class List extends Component {
     listItemsRef.child(key).update({ purchased: !purchased });
   };
 
+  deleteListItem = (key) => {
+    listItemsRef.child(key).remove();
+  };
+
   render() {
     return (
       <div>
@@ -85,6 +89,7 @@ class List extends Component {
               key={item.key}
               item={item}
               handleCheckboxChange={this.handleCheckboxChange}
+              deleteListItem={this.deleteListItem}
             />
           ))}
         </ul>

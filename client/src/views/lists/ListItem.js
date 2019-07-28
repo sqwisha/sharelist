@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 
 class ListItem extends Component {
-  // add state for class/style change on purchased
+  // TODO add state for class/style change on purchased
   render() {
     const { id, key, title, purchased } = this.props.item;
-    console.log('purchased?', purchased);
 
     return (
       <React.Fragment>
@@ -23,6 +22,9 @@ class ListItem extends Component {
             />
             <span>{title}</span>
           </label>
+          <button onClick={this.props.deleteListItem.bind(this, key)}>
+            &times;
+          </button>
         </li>
       </React.Fragment>
     );
