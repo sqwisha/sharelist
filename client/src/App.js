@@ -55,18 +55,32 @@ class App extends Component {
       });
   };
 
-  signIn = () => {};
+  signIn = (email, password) => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.updateUser(result);
+        this.props.history.push('/');
+      })
+      .catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          alert('Wrong password.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
+  };
+
   logOut = () => {};
 
   render() {
     return (
       <div>
-        <Header
-          signIn={this.signIn}
-          signUp={this.signUp}
-          user={this.state.user}
-          logOut={this.logOut}
-        />
+        <Header user={this.state.user} logOut={this.logOut} />
         <main>
           <Route
             exact
@@ -85,7 +99,16 @@ class App extends Component {
               />
             )}
           />
-          <Route path="/sign_in" component={SignIn} />
+          <Route
+            path="/sign_in"
+            render={(routeProps) => (
+              <SignIn
+                {...routeProps}
+                updateUser={this.updateUser}
+                signIn={this.signIn}
+              />
+            )}
+          />
           <Route path="/error" component={Error} />
         </main>
       </div>
