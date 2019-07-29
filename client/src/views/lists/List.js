@@ -74,15 +74,8 @@ class List extends Component {
     this.listItemsRef.child(key).remove();
   };
 
-  handleEdit = (key, title) => {
-    const newItemTitle = prompt('Edit item: ', title);
-    if (!newItemTitle) return;
-
-    const updatedTitle = {
-      title: newItemTitle
-    };
-
-    this.listItemsRef.child(key).update(updatedTitle);
+  updateListItem = (key, title) => {
+    this.listItemsRef.child(key).update({ title: title });
   };
 
   render() {
@@ -101,7 +94,7 @@ class List extends Component {
               item={item}
               handleCheckboxChange={this.handleCheckboxChange}
               deleteListItem={this.deleteListItem}
-              handleEdit={this.handleEdit}
+              updateListItem={this.updateListItem}
             />
           ))}
         </ul>
