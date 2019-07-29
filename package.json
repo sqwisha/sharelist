@@ -4,7 +4,7 @@
   "description": "A grocery list web-application that can be shared in real-time by multiple users.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "npm run server.js",
     "server": "nodemon src/server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
