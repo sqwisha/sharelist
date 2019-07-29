@@ -39,6 +39,7 @@ class App extends Component {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
+        if (!result) return alert('There was a problem, please try again.');
         this.updateUser(result);
         this.props.history.push('/');
       })
@@ -51,7 +52,6 @@ class App extends Component {
           alert(errorMessage);
         }
         console.log(error);
-        this.props.history.push('/error');
       });
   };
 
@@ -99,21 +99,13 @@ class App extends Component {
           <Route
             path="/sign_up"
             render={(routeProps) => (
-              <SignUp
-                {...routeProps}
-                updateUser={this.updateUser}
-                signUp={this.signUp}
-              />
+              <SignUp {...routeProps} signUp={this.signUp} />
             )}
           />
           <Route
             path="/sign_in"
             render={(routeProps) => (
-              <SignIn
-                {...routeProps}
-                updateUser={this.updateUser}
-                signIn={this.signIn}
-              />
+              <SignIn {...routeProps} signIn={this.signIn} />
             )}
           />
           <Route path="/error" component={Error} />
