@@ -75,7 +75,14 @@ class App extends Component {
       });
   };
 
-  logOut = () => {};
+  logOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        this.updateUser(null);
+      });
+  };
 
   render() {
     return (

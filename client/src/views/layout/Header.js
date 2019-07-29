@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class Header extends Component {
   render() {
     return (
-      <React.Fragment>
+      <>
         <header className="App-header">
           <h1 className="App-title">ShareList</h1>
 
@@ -26,7 +26,7 @@ class Header extends Component {
             )}
           </nav>
         </header>
-      </React.Fragment>
+      </>
     );
   }
 }
