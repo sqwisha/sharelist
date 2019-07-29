@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
-import firebase from './Firebase';
 
 import './App.css';
 
@@ -35,51 +34,46 @@ class App extends Component {
   };
 
   signUp = (email, password) => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
+    fetch('/api/users/create', {
+      method: 'post',
+      body: JSON.stringify({ email, password }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then((res) => res.json())
       .then((result) => {
-        if (!result) return alert('There was a problem, please try again.');
-        this.updateUser(result);
+        if (result.error) return Promise.reject(result.error);
+        this.updateUser(result.result);
         this.props.history.push('/');
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        if (errorCode === 'auth/weak-password') {
-          alert('The password is too weak.');
-        } else {
-          alert(errorMessage);
-        }
         console.log(error);
+        return alert(error.message);
       });
   };
 
   signIn = (email, password) => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+    fetch('/api/users/sign_in', {
+      method: 'post',
+      body: JSON.stringify({ email, password }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then((res) => res.json())
       .then((result) => {
-        this.updateUser(result);
+        if (result.error) return Promise.reject(result.error);
+        this.updateUser(result.result);
         this.props.history.push('/');
       })
-      .catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        if (errorCode === 'auth/wrong-password') {
-          alert('Wrong password.');
-        } else {
-          alert(errorMessage);
-        }
+      .catch((error) => {
         console.log(error);
+        return alert(error.message);
       });
   };
 
   logOut = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
+    fetch('/api/users/logout')
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
         this.updateUser(null);
       });
   };

@@ -7,6 +7,8 @@ import NewItemForm from './NewItemForm';
 import ListItem from './ListItem';
 
 class List extends Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -18,22 +20,34 @@ class List extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.listItemsRef.on('value', (snapshot) => {
-      let listItems = [];
-      const items = snapshot.val();
-
-      for (let item in items) {
-        listItems.push({
-          key: item,
-          id: items[item].id,
-          userId: items[item].userId,
-          title: items[item].title,
-          purchased: items[item].purchased
-        });
-      }
-      this.setState({ listItems: listItems });
+      this.setListItems(snapshot);
     });
   }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  setListItems = (snapshot) => {
+    let listItems = [];
+    const items = snapshot.val();
+
+    for (let item in items) {
+      listItems.push({
+        key: item,
+        id: items[item].id,
+        userId: items[item].userId,
+        title: items[item].title,
+        purchased: items[item].purchased
+      });
+    }
+
+    if (this._isMounted) {
+      this.setState({ listItems: listItems });
+    }
+  };
 
   userListItems = () => {
     return this.state.listItems.filter((item) => {
@@ -59,9 +73,7 @@ class List extends Component {
       headers: { 'Content-Type': 'application/json' }
     })
       .then((res) => res.json())
-      .then((json) => {
-        console.log('post fetch successful');
-      });
+      .then((json) => {});
 
     this.setState({ newItemInput: '' });
   };
