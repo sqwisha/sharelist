@@ -14,6 +14,7 @@ const database = firebase.database();
 const listItemsRef = database.ref('listItems');
 
 module.exports = (app) => {
+  // TODO remove?
   app.get('/api/list_items', (req, res) => {
     listItemsRef
       .once('value')
@@ -29,8 +30,9 @@ module.exports = (app) => {
   app.post('/api/list_items/add', (req, res) => {
     const newListItem = {
       id: uuid(),
+      userId: req.body.user,
       title: req.body.newListItem,
-      completed: false
+      purchased: false
     };
 
     listItemsRef.push(newListItem);

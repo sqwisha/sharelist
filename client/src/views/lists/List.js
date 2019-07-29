@@ -7,8 +7,8 @@ import NewItemForm from './NewItemForm';
 import ListItem from './ListItem';
 
 class List extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       listItems: [],
       newItemInput: ''
@@ -26,6 +26,7 @@ class List extends Component {
         listItems.push({
           key: item,
           id: items[item].id,
+          userId: items[item].userId,
           title: items[item].title,
           purchased: items[item].purchased
         });
@@ -34,6 +35,12 @@ class List extends Component {
     });
   }
 
+  userListItems = () => {
+    return this.state.listItems.filter((item) => {
+      return this.props.user === item.userId;
+    });
+  };
+
   onInputChange = (e) => {
     e.preventDefault();
     this.setState({ newItemInput: e.target.value });
@@ -41,7 +48,10 @@ class List extends Component {
 
   handleNewListItem = (e) => {
     e.preventDefault();
-    const body = { newListItem: this.state.newItemInput };
+    const body = {
+      newListItem: this.state.newItemInput,
+      user: this.props.user
+    };
 
     fetch('/api/list_items/add', {
       method: 'post',
@@ -85,7 +95,7 @@ class List extends Component {
         />
         <h2>List</h2>
         <ul>
-          {this.state.listItems.map((item) => (
+          {this.userListItems().map((item) => (
             <ListItem
               key={item.key}
               item={item}

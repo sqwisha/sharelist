@@ -27,7 +27,6 @@ class App extends Component {
         authData: ''
       });
     } else {
-      console.log(result.user.email);
       this.setState({
         user: result.user.email,
         authData: result
@@ -69,8 +68,13 @@ class App extends Component {
           logOut={this.logOut}
         />
         <main>
-          <Route exact path="/" component={List} />
-          {/* <Route path="/sign_up" component={SignUp} /> */}
+          <Route
+            exact
+            path="/"
+            render={(routeProps) => (
+              <List {...routeProps} user={this.state.user} />
+            )}
+          />
           <Route
             path="/sign_up"
             render={(routeProps) => (
