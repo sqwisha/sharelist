@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, Switch } from 'react-router-dom';
 
 import './App.css';
 
@@ -82,25 +82,35 @@ class App extends Component {
       <div>
         <Header user={this.state.user} logOut={this.logOut} />
         <main>
-          <Route
-            exact
-            path="/"
-            render={(routeProps) => (
-              <List {...routeProps} user={this.state.user} />
-            )}
-          />
-          <Route
-            path="/sign_up"
-            render={(routeProps) => (
-              <SignUp {...routeProps} signUp={this.signUp} />
-            )}
-          />
-          <Route
-            path="/sign_in"
-            render={(routeProps) => (
-              <SignIn {...routeProps} signIn={this.signIn} />
-            )}
-          />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={(routeProps) => (
+                <List {...routeProps} user={this.state.user} />
+              )}
+            />
+            <Route
+              exact
+              path="/sign_up"
+              render={(routeProps) => (
+                <SignUp {...routeProps} signUp={this.signUp} />
+              )}
+            />
+            <Route
+              exact
+              path="/sign_in"
+              render={(routeProps) => (
+                <SignIn {...routeProps} signIn={this.signIn} />
+              )}
+            />
+            <Route exact path="/error" component={Error} />
+            <Route
+              render={(routeProps) => (
+                <List {...routeProps} user={this.state.user} />
+              )}
+            />
+          </Switch>
         </main>
       </div>
     );
