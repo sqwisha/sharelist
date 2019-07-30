@@ -6,18 +6,18 @@ import NewItemForm from './NewItemForm';
 afterEach(cleanup);
 
 test('it should render without crashing', () => {
-  const { getByLabelText } = render(<NewItemForm />);
+  const { getByTestId } = render(<NewItemForm />);
 
-  expect(getByLabelText(/new item/i)).toBeInTheDocument();
+  expect(getByTestId('new-item-input')).toBeInTheDocument();
 });
 
 test('it should add new list item', () => {
   const handleNewListItem = jest.fn();
-  const { getByLabelText, getByTestId } = render(
+  const { getByTestId } = render(
     <NewItemForm handleNewListItem={handleNewListItem} />
   );
 
-  const newItemInput = getByLabelText(/new item/i);
+  const newItemInput = getByTestId('new-item-input');
 
   fireEvent.change(newItemInput, { target: { value: 'Watermelons' } });
   expect(newItemInput.value).toBe('Watermelons');

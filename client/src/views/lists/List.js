@@ -1,10 +1,38 @@
 import React, { Component } from 'react';
 import firebase from '../../Firebase';
+import styled from 'styled-components';
 
 import './List.css';
 
 import NewItemForm from './NewItemForm';
 import ListItem from './ListItem';
+
+const ListContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ListH2 = styled.h2`
+  color: #1f202d;
+  padding: 0.8rem 0;
+  margin: 0;
+  flex-grow: 2;
+  font-family: 'Sarina', 'Noto Sans', sans-serif;
+`;
+
+const Small = styled.small`
+  padding: 0;
+  margin: 0;
+`;
+
+const UL = styled.ul`
+  width: 100%;
+  max-width: 350px;
+  list-style: none;
+  padding: 30px 0 0 0;
+  margin: 0;
+`;
 
 class List extends Component {
   _isMounted = false;
@@ -92,14 +120,21 @@ class List extends Component {
 
   render() {
     return (
-      <div data-testid="List">
+      <ListContainer data-testid="List">
         <NewItemForm
           onInputChange={this.onInputChange}
           newItemInput={this.state.newItemInput}
           handleNewListItem={this.handleNewListItem}
         />
-        <h2>List</h2>
-        <ul>
+        <ListH2>
+          {this.props.user === 'Guest' ? 'Demo List' : 'Private List'}
+        </ListH2>
+        {this.props.user === 'Guest' ? (
+          <Small>Sign up to make a private list!</Small>
+        ) : (
+          ''
+        )}
+        <UL>
           {this.userListItems().map((item) => (
             <ListItem
               key={item.key}
@@ -109,8 +144,8 @@ class List extends Component {
               updateListItem={this.updateListItem}
             />
           ))}
-        </ul>
-      </div>
+        </UL>
+      </ListContainer>
     );
   }
 }

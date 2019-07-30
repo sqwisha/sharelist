@@ -1,12 +1,9 @@
-.App {
-  text-align: center;
-}
-
+/*
 .App-header {
   background-color: #282c34;
   min-height: 10vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: colum;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -15,4 +12,21 @@
 
 .Link {
   color: #fff;
+} */
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Sarina&display=swap');
+
+body {
+  background-color: #faf9fa;
+  font-family: 'Open Sans', sans-serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }

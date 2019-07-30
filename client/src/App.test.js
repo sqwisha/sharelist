@@ -37,7 +37,7 @@ test('it should render Header and List', () => {
   expect(getByText('Sign Up')).toBeInTheDocument();
   expect(getByText('Sign In')).toBeInTheDocument();
   expect(getByText('Add')).toBeInTheDocument();
-  expect(getByText('List')).toBeInTheDocument();
+  expect(getByText('Demo List')).toBeInTheDocument();
 });
 
 test('it should navigate to all navbar links', () => {
@@ -47,12 +47,12 @@ test('it should navigate to all navbar links', () => {
   expect(container.innerHTML).toContain('List');
   const leftClick = { button: 0 };
 
-  fireEvent.click(getByText(/home/i), leftClick);
+  fireEvent.click(getByText('Home'), leftClick);
   expect(container.innerHTML).toContain('List');
 
-  fireEvent.click(getByText(/sign up/i), leftClick);
+  fireEvent.click(getByText('Sign Up'), leftClick);
   expect(getByPlaceholderText(/enter password again/i)).toBeInTheDocument();
 
-  fireEvent.click(getByText(/sign in/i), leftClick);
+  fireEvent.click(getByText('Sign In'), leftClick);
   expect(getByPlaceholderText(/enter password/i)).toBeInTheDocument();
 });
