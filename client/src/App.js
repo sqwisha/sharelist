@@ -6,7 +6,6 @@ import './App.css';
 // Views
 import Header from './views/layout/Header';
 import List from './views/lists/List';
-import Error from './views/errors/Error';
 import SignUp from './views/users/SignUp';
 import SignIn from './views/users/SignIn';
 
@@ -102,7 +101,6 @@ class App extends Component {
               <SignIn {...routeProps} signIn={this.signIn} />
             )}
           />
-          <Route path="/error" component={Error} />
         </main>
       </div>
     );

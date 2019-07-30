@@ -92,7 +92,7 @@ class List extends Component {
 
   render() {
     return (
-      <div>
+      <div data-testid="List">
         <NewItemForm
           onInputChange={this.onInputChange}
           newItemInput={this.state.newItemInput}

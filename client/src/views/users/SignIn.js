@@ -26,8 +26,9 @@ class SignIn extends Component {
 
   render() {
     return (
-      <form onSubmit={this.formSubmit} autoComplete="off">
+      <form onSubmit={this.formSubmit}>
         <label htmlFor="email">
+          Email
           <input
             type="email"
             name="email"
@@ -38,6 +39,7 @@ class SignIn extends Component {
           />
         </label>
         <label htmlFor="password">
+          Password
           <input
             type="password"
             name="password"
@@ -47,7 +49,7 @@ class SignIn extends Component {
             defaultValue={this.state.password}
           />
         </label>
-        <button>Sign In</button>
+        <button data-testid="sign-in-button">Sign In</button>
       </form>
     );
   }

@@ -39,6 +39,7 @@ class SignUp extends Component {
     return (
       <form onSubmit={this.formSubmit} autoComplete="off">
         <label htmlFor="email">
+          Email
           <input
             type="email"
             name="email"
@@ -49,6 +50,7 @@ class SignUp extends Component {
           />
         </label>
         <label htmlFor="password">
+          Password
           <input
             type="password"
             name="password"
@@ -59,6 +61,7 @@ class SignUp extends Component {
           />
         </label>
         <label htmlFor="passwordConf">
+          Password Confirmation
           <input
             type="password"
             name="passwordConf"
@@ -74,7 +77,7 @@ class SignUp extends Component {
         ) : (
           <small>Password and Confirmation must match</small>
         )}
-        <button>Sign Up</button>
+        <button data-testid="sign-up-button">Sign Up</button>
       </form>
     );
   }

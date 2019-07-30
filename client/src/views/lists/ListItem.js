@@ -44,6 +44,7 @@ class ListItem extends Component {
             <>
               <form onSubmit={(e) => this.editListItem(e, key)}>
                 <input
+                  data-testid="edit-input"
                   onChange={this.onChange}
                   type="text"
                   name="editItemInput"
@@ -51,7 +52,12 @@ class ListItem extends Component {
                 />
                 <button>Save</button>
               </form>
-              <button onClick={() => this.toggleEdit(null)}>&times;</button>
+              <button
+                data-testid="cancel-edit-button"
+                onClick={() => this.toggleEdit(title)}
+              >
+                &times;
+              </button>
             </>
           ) : (
             <>
@@ -59,6 +65,7 @@ class ListItem extends Component {
                 <input
                   type="checkbox"
                   id={id}
+                  data-testid={key}
                   name="purchased"
                   checked={!!purchased}
                   onChange={this.props.handleCheckboxChange.bind(
@@ -69,8 +76,16 @@ class ListItem extends Component {
                 />
                 <span>{title}</span>
               </label>
-              <button onClick={() => this.toggleEdit(title)}>Edit</button>
-              <button onClick={this.props.deleteListItem.bind(this, key)}>
+              <button
+                data-testid="edit-button"
+                onClick={() => this.toggleEdit(title)}
+              >
+                Edit
+              </button>
+              <button
+                data-testid="delete-button"
+                onClick={this.props.deleteListItem.bind(this, key)}
+              >
                 &times;
               </button>
             </>
