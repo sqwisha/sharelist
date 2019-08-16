@@ -4,11 +4,7 @@ import styled from 'styled-components';
 const FormContainer = styled.div`
   width: 100%;
   max-width: 400px;
-  padding: 1rem;
-
-  @media (max-width: 450px) {
-    padding: 1rem 0;
-  }
+  padding: 1rem 0;
 `;
 
 const Form = styled.form`
